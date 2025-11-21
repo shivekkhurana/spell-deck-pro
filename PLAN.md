@@ -12,6 +12,18 @@ A proof-of-concept presentation software focused on contextual spell checking fo
 - **AI Integration**: AI SDK (Vercel AI SDK)
 - **Styling**: Tailwind CSS
 - **Rich Text Editor**: Quill
+- **Code Formatter**: Prettier (with format on save)
+
+## Programming Paradigm
+- **Approach**: Functional Programming
+- **Principles**:
+  - Use pure functions wherever possible
+  - Prefer immutability (avoid direct mutations)
+  - Use functional composition and higher-order functions
+  - Leverage map, filter, reduce, and other functional array methods
+  - Keep functions small, focused, and composable
+  - Avoid side effects in pure functions (isolate side effects to specific boundaries)
+  - Use functional patterns for state transformations (e.g., immutable updates)
 
 ## Project Structure
 
@@ -66,6 +78,8 @@ spell-deck-pro/
 ├── vite.config.ts
 ├── tailwind.config.js
 ├── postcss.config.js
+├── prettier.config.js
+├── .prettierignore
 ├── bunfig.toml
 └── README.md
 ```
@@ -199,6 +213,7 @@ MAX_SPELL_CHECKS_PER_MINUTE=30
 - [ ] Set up TypeScript configuration
 - [ ] Set up Tailwind CSS (config, PostCSS)
 - [ ] Install dependencies (React, Jotai, AI SDK, Quill, etc.)
+- [ ] Set up Prettier (config file, format on save)
 - [ ] Create .env.example and .env files
 - [ ] Set up Vite dev server and build scripts
 
@@ -276,7 +291,8 @@ MAX_SPELL_CHECKS_PER_MINUTE=30
     "@vitejs/plugin-react": "^4.x",
     "tailwindcss": "^3.x",
     "postcss": "^8.x",
-    "autoprefixer": "^10.x"
+    "autoprefixer": "^10.x",
+    "prettier": "^3.x"
   }
 }
 ```
@@ -313,11 +329,54 @@ MAX_SPELL_CHECKS_PER_MINUTE=30
    - Can add localStorage later if needed
    - Rationale: PoC doesn't need persistence
 
+7. **Functional Programming**:
+   - All code should follow functional programming principles
+   - Use pure functions for transformations and computations
+   - State updates should be immutable (create new objects/arrays rather than mutating)
+   - Prefer functional composition over imperative code
+   - Use functional utilities (map, filter, reduce, etc.) over loops
+   - Rationale: Better testability, predictability, and maintainability
+
+8. **Code Formatting**:
+   - Use Prettier for consistent code formatting
+   - Configure format on save in editor settings
+   - Prettier config should align with functional programming style
+   - Rationale: Consistent code style, reduces formatting debates, improves readability
+
+## Code Formatting (Prettier)
+
+### Configuration
+- **Config File**: `prettier.config.js`
+- **Format on Save**: Enabled in editor settings
+- **Recommended Settings**:
+  ```javascript
+  {
+    semi: true,
+    singleQuote: true,
+    tabWidth: 2,
+    trailingComma: 'es5',
+    printWidth: 80,
+    arrowParens: 'always',
+  }
+  ```
+
+### Editor Setup
+- Configure editor (VS Code/Cursor) to format on save
+- Use Prettier as default formatter
+- Add `.prettierignore` for build artifacts and dependencies
+
 ## Implementation Notes
 
 - **Spell Check Results**: Results display and detailed error handling will be implemented later
 - **One Note at a Time**: Spell checking logic for one note at a time will be implemented later
 - **Cover Page**: First slide (order === 0) is treated as the cover page for context
+- **Functional Programming**: All implementations should follow functional programming principles:
+  - State updates: Use immutable patterns (e.g., `[...array, newItem]` instead of `array.push(newItem)`)
+  - Utility functions: Write pure functions that take inputs and return outputs without side effects
+  - Component logic: Extract logic into pure functions outside components when possible
+  - Data transformations: Use functional methods (map, filter, reduce) and composition
+  - Avoid: Direct mutations, imperative loops where functional alternatives exist, side effects in pure functions
+- **Code Formatting**: All code should be formatted with Prettier on save to maintain consistency
 
 ## Next Steps
 
