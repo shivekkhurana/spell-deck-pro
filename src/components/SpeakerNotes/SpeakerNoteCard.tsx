@@ -8,7 +8,7 @@ import {
 import { speakerNotesAtom } from '@/atoms/speakerNotes/speakerNotes';
 import type { SpeakerNote } from '@/atoms/speakerNotes/speakerNotes.types';
 import { SpellCheckIndicator } from '@/components/SpellCheck/SpellCheckIndicator';
-import { performSpellCheck } from '@/services/spellCheckService/spellCheckService';
+import { contextAwareSpellCheck } from '@/services/spellCheckService/contextAwareSpellCheck';
 import { debounce, type DebouncedFunction } from '@/utils/debounce';
 
 interface SpeakerNoteCardProps {
@@ -39,7 +39,8 @@ export const SpeakerNoteCard = ({ note }: SpeakerNoteCardProps) => {
   );
 
   const debounceMs =
-    parseInt(import.meta.env.SPELL_CHECK_DEBOUNCE_MS || '2000', 10) || 2000;
+    parseInt(import.meta.env.VITE_SPELL_CHECK_DEBOUNCE_MS || '2000', 10) ||
+    2000;
 
   useEffect(() => {
     setLocalContent(note.content);
@@ -59,11 +60,10 @@ export const SpeakerNoteCard = ({ note }: SpeakerNoteCardProps) => {
       );
 
       try {
-        await performSpellCheck({
-          noteContent: localContent,
-          coverPage,
-          currentSlide,
-        });
+        await contextAwareSpellCheck(
+          `Cover page: ${coverPage}\nCurrent slide: ${currentSlide}`,
+          localContent
+        );
         setNotes((currentNotes) =>
           updateNote(currentNotes, note.id, { spellCheckStatus: 'checked' })
         );

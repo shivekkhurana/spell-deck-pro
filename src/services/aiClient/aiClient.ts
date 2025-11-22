@@ -4,11 +4,11 @@ import { generateText } from 'ai';
 import type { SpellCheckResult } from '@/services/aiClient/aiClient.types';
 
 const getApiKey = (): string => {
-  return import.meta.env.ANTHROPIC_API_KEY || '';
+  return import.meta.env.VITE_ANTHROPIC_API_KEY || '';
 };
 
 const getModel = (): string => {
-  return import.meta.env.SPELL_CHECK_MODEL || 'claude-3-haiku-20240307';
+  return import.meta.env.VITE_SPELL_CHECK_MODEL || 'claude-3-haiku-20240307';
 };
 
 export const checkSpelling = async (

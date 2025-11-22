@@ -33,9 +33,9 @@ A proof-of-concept presentation software focused on contextual spell checking fo
    Create a `.env` file with the following variables:
 
    ```bash
-   ANTHROPIC_API_KEY=your_anthropic_api_key_here
-   SPELL_CHECK_MODEL=claude-3-haiku-20240307
-   SPELL_CHECK_DEBOUNCE_MS=2000
+   VITE_ANTHROPIC_API_KEY=your_anthropic_api_key_here
+   VITE_SPELL_CHECK_MODEL=claude-3-haiku-20240307
+   VITE_SPELL_CHECK_DEBOUNCE_MS=2000
    ```
 
 3. Start the development server:
@@ -53,9 +53,11 @@ A proof-of-concept presentation software focused on contextual spell checking fo
 
 Required environment variables:
 
-- `ANTHROPIC_API_KEY`: Your Anthropic/Claude API key
-- `SPELL_CHECK_MODEL`: Model to use for spell checking (default: `claude-3-haiku-20240307`)
-- `SPELL_CHECK_DEBOUNCE_MS`: Debounce delay in milliseconds (default: 2000)
+- `VITE_ANTHROPIC_API_KEY`: Your Anthropic/Claude API key
+- `VITE_SPELL_CHECK_MODEL`: Model to use for spell checking (default: `claude-3-haiku-20240307`)
+- `VITE_SPELL_CHECK_DEBOUNCE_MS`: Debounce delay in milliseconds (default: 2000)
+
+**Note**: In Vite, environment variables must be prefixed with `VITE_` to be exposed to client-side code.
 
 ## Project Structure
 
