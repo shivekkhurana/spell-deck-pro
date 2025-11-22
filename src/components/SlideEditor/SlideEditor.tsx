@@ -1,6 +1,10 @@
+import clsx from 'clsx';
 import { useAtom, useAtomValue } from 'jotai';
 
-import { currentSlideAtom } from '@/atoms/currentSlide/currentSlide';
+import {
+  currentSlideAtom,
+  currentSlideIdAtom,
+} from '@/atoms/currentSlide/currentSlide';
 import { slidesAtom } from '@/atoms/slides/slides';
 import type { Slide } from '@/atoms/slides/slides.types';
 
@@ -15,8 +19,9 @@ const updateSlide = (
 };
 
 export const SlideEditor = () => {
-  const [, setSlides] = useAtom(slidesAtom);
+  const [slides, setSlides] = useAtom(slidesAtom);
   const currentSlide = useAtomValue(currentSlideAtom);
+  const [currentSlideId, setCurrentSlideId] = useAtom(currentSlideIdAtom);
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!currentSlide) return;
@@ -32,6 +37,23 @@ export const SlideEditor = () => {
     );
   };
 
+  const handleDeleteSlide = () => {
+    if (!currentSlideId) return;
+
+    const updatedSlides = slides.filter((slide) => slide.id !== currentSlideId);
+    setSlides(updatedSlides);
+
+    // Set current slide to the first remaining slide or null
+    if (updatedSlides.length > 0) {
+      const sorted = [...updatedSlides].sort((a, b) => a.order - b.order);
+      setCurrentSlideId(sorted[0].id);
+    } else {
+      setCurrentSlideId(null);
+    }
+  };
+
+  const canDelete = currentSlideId !== null;
+
   if (!currentSlide) {
     return (
       <div className="flex items-center justify-center h-full text-gray-500">
@@ -41,7 +63,7 @@ export const SlideEditor = () => {
   }
 
   return (
-    <div className="flex p-8">
+    <div className="p-8">
       <div className="w-full aspect-[16/9] bg-white border rounded border-gray-300 p-6 flex flex-col">
         <div className="mb-6">
           <input
@@ -61,6 +83,29 @@ export const SlideEditor = () => {
           />
         </div>
       </div>
+      <button
+        onClick={handleDeleteSlide}
+        disabled={!canDelete}
+        className={clsx(
+          // Spacing
+          'p-1 mt-4',
+          // Colors
+          'text-black',
+          // Border
+          'border border-red-500/30  hover:border-red-500/80 rounded-sm',
+          // Hover
+          // Disabled
+          !canDelete && 'opacity-50 cursor-not-allowed',
+          // Transitions
+          'transition-colors',
+          // Typography
+          'font-normal text-sm',
+          // Cursor
+          canDelete && 'cursor-pointer'
+        )}
+      >
+        Delete
+      </button>
     </div>
   );
 };

@@ -32,15 +32,13 @@ export const SpeakerNotes = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-gray-200/50">
-        <h2 className="text-sm font-semibold text-gray-700 mb-2.5 uppercase tracking-wide">
-          Speaker Notes
-        </h2>
         <AddNoteButton onClick={handleAddNote} />
       </div>
       <div className="flex-1 overflow-y-auto p-3 space-y-3">
         {currentNotes.length === 0 ? (
           <div className="text-center text-gray-400 text-xs py-8">
-            No speaker notes yet. Click "Add Note" to create one.
+            No speaker notes yet.
+            <br /> Click "Add Note" to create one.
           </div>
         ) : (
           currentNotes.map((note) => (

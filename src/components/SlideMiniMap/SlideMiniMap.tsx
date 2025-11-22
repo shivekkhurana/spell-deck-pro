@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
-import { useAtom } from 'jotai';
+import { SlideThumbnail } from './SlideThumbnail';
+import clsx from 'clsx';
+import { useAtom, useSetAtom } from 'jotai';
 
 import { currentSlideIdAtom } from '@/atoms/currentSlide/currentSlide';
 import { slidesAtom } from '@/atoms/slides/slides';
 import type { Slide } from '@/atoms/slides/slides.types';
-
-import { SlideThumbnail } from './SlideThumbnail';
 
 const createNewSlide = (order: number): Slide => ({
   id: crypto.randomUUID(),
@@ -16,16 +15,7 @@ const createNewSlide = (order: number): Slide => ({
 
 export const SlideMiniMap = () => {
   const [slides, setSlides] = useAtom(slidesAtom);
-  const [, setCurrentSlideId] = useAtom(currentSlideIdAtom);
-
-  // Initialize with a cover slide if no slides exist
-  useEffect(() => {
-    if (slides.length === 0) {
-      const coverSlide = createNewSlide(0);
-      setSlides([coverSlide]);
-      setCurrentSlideId(coverSlide.id);
-    }
-  }, [slides.length, setSlides, setCurrentSlideId]);
+  const setCurrentSlideId = useSetAtom(currentSlideIdAtom);
 
   const handleAddSlide = () => {
     const newOrder = slides.length;
@@ -42,7 +32,24 @@ export const SlideMiniMap = () => {
       <div className="p-3 border-b border-gray-200/50">
         <button
           onClick={handleAddSlide}
-          className="w-full px-3 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-100 border border-gray-200/50 transition-colors font-normal text-sm"
+          className={clsx(
+            // Layout
+            'w-full',
+            // Spacing
+            'px-3 py-2',
+            // Colors
+            'bg-white text-gray-700',
+            // Border
+            'border border-gray-200/50 rounded-md',
+            // Hover
+            'hover:bg-gray-100',
+            // Transitions
+            'transition-colors',
+            // Typography
+            'font-normal text-sm',
+            // Cursor
+            'cursor-pointer'
+          )}
         >
           + Add Slide
         </button>
