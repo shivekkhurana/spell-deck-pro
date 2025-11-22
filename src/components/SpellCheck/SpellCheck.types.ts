@@ -1,3 +1,3 @@
 export interface SpellCheckIndicatorProps {
-  status?: 'pending' | 'checking' | 'checked' | 'error';
+  status?: 'idle' | 'checking' | 'checked' | 'error';
 }

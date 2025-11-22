@@ -14,7 +14,7 @@ const createNewNote = (slideId: string, order: number): SpeakerNote => ({
   slideId,
   content: '',
   order,
-  spellCheckStatus: 'pending',
+  spellCheckStatus: 'idle',
 });
 
 export const SpeakerNotes = () => {

@@ -65,17 +65,21 @@ If the note content is empty, return {"isCorrect": true, "errors": []}.
 Important: Only flag words that are actually misspelled. If a word is domain-specific jargon that appears in the context, it should NOT be flagged as an error.
 
 Only return a JSON object. Do not return any other text or comments.
+
+Don't return the same suggestion multiple times.
+Don't return the suggestion if it's same as the misspelled word.
 `;
 
   try {
-    const anthropicProvider = createAnthropic({ apiKey });
+    const anthropicProvider = createAnthropic({
+      apiKey,
+      headers: { 'anthropic-dangerous-direct-browser-access': 'true' },
+    });
     const { text: responseText } = await generateText({
       model: anthropicProvider(getModel()),
       prompt,
       temperature: 0.3,
     });
-
-    console.log('responseText', responseText);
 
     // Try to extract JSON from the response (Claude might wrap it in markdown)
     let jsonText = responseText.trim();
@@ -99,8 +103,6 @@ Only return a JSON object. Do not return any other text or comments.
     if (!Array.isArray(result.errors)) {
       throw new Error('Invalid response: errors must be an array');
     }
-
-    console.log('result', result);
 
     return result;
   } catch (error) {

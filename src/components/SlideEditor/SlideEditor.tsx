@@ -77,6 +77,7 @@ export const SlideEditor = () => {
         <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           <textarea
             value={currentSlide.content}
+            spellCheck={false}
             onChange={handleContentChange}
             placeholder="Start typing..."
             className="w-full h-full p-0 border-none outline-none bg-transparent resize-none text-base leading-relaxed text-gray-700 placeholder-gray-400 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
