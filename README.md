@@ -75,18 +75,36 @@ Since the content of the slide is considered while suggesting spellings, the sug
 
 For example, if you add the following content and speaker note, the word "mah" will be considered fine:
 
-title: Eminem's top works
-body:
+```
+title:
+Eminem's top works
+```
 
+```
+body:
 - Slim shady is one of Eminem's top tracks
 - It starts with, "Ha, mah name is, Ha..."
 - He uses the word "my" as "mah" to maintain his flow
+```
 
+```
 note:
-
-- introduce yourself by saying, "mah name is Shivek"
+introduce yourself by saying, "mah name is Shivek"
+```
 
 But if you remove the content, the word "my" will be suggested as a replacement for "mah".
+
+### Verifying AI correctness
+
+We use Claude to return spell check suggestions as JSON. While building the system, I started with 10 test cases in `contextAwareSpellChecker.test.ts` and an AI-generated system prompt.
+
+When I ran the test cases, all but three tests passed. This led me to debugging and manually adjusting the prompt until all tests were passing.
+
+### AI maintainability
+
+This system can be used to develop an internal benchmark. We can track time-to-first-token, token usage, correctness percentage, and time-to-completion for objective correctness.
+
+We can also use a set of desired outputs for given inputs. This will help improve the quality, or subjective correctness.
 
 ## Tech Stack
 
@@ -128,16 +146,6 @@ But if you remove the content, the word "my" will be suggested as a replacement 
    bun run build
    ```
 
-## Environment Variables
-
-Required environment variables:
-
-- `VITE_ANTHROPIC_API_KEY`: Your Anthropic/Claude API key (required for AI spell checking)
-- `VITE_SPELL_CHECK_MODEL`: Model to use for spell checking (default: `claude-3-haiku-20240307`)
-- `VITE_SPELL_CHECK_DEBOUNCE_MS`: Debounce delay in milliseconds (default: 2000)
-
-**Note**: In Vite, environment variables must be prefixed with `VITE_` to be exposed to client-side code.
-
 ## Project Structure
 
 ```
@@ -149,17 +157,6 @@ src/
 ├── App.tsx        # Main app component
 └── main.tsx       # Entry point
 ```
-
-## Development
-
-The project follows functional programming principles:
-
-- Pure functions where possible
-- Immutable state updates
-- Functional composition
-- No direct mutations
-
-Code is automatically formatted with Prettier on save.
 
 ## Known tradeoffs
 

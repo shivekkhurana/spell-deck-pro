@@ -1,10 +1,10 @@
-import { CenterPanel } from './CenterPanel';
-import { LeftSidebar } from './LeftSidebar';
-import { RightSidebar } from './RightSidebar';
-import { TopBar } from './TopBar';
 import { useAtomValue } from 'jotai';
 
 import { slidesAtom } from '@/atoms/slides/slides';
+import { CenterPanel } from '@/components/Layout/CenterPanel';
+import { LeftSidebar } from '@/components/Layout/LeftSidebar';
+import { RightSidebar } from '@/components/Layout/RightSidebar';
+import { TopBar } from '@/components/Layout/TopBar';
 
 export const MainLayout = () => {
   const slides = useAtomValue(slidesAtom);

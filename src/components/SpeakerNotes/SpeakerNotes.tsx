@@ -1,5 +1,3 @@
-import { AddNoteButton } from './AddNoteButton';
-import { SpeakerNoteCard } from './SpeakerNoteCard';
 import { useAtom, useAtomValue } from 'jotai';
 
 import { currentSlideIdAtom } from '@/atoms/currentSlide/currentSlide';
@@ -8,6 +6,8 @@ import {
   speakerNotesAtom,
 } from '@/atoms/speakerNotes/speakerNotes';
 import type { SpeakerNote } from '@/atoms/speakerNotes/speakerNotes.types';
+import { AddNoteButton } from '@/components/SpeakerNotes/AddNoteButton';
+import { SpeakerNoteCard } from '@/components/SpeakerNotes/SpeakerNoteCard';
 
 const createNewNote = (slideId: string, order: number): SpeakerNote => ({
   id: crypto.randomUUID(),

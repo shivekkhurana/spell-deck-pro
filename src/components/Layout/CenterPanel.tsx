@@ -1,5 +1,4 @@
-import { ExampleDock } from './ExampleDock';
-
+import { ExampleDock } from '@/components/Layout/ExampleDock';
 import { SlideEditor } from '@/components/SlideEditor/SlideEditor';
 
 export const CenterPanel = () => {

@@ -1,7 +1,7 @@
-import type { SpeakerNote } from './speakerNotes.types';
 import { atom } from 'jotai';
 
 import { currentSlideIdAtom } from '@/atoms/currentSlide/currentSlide';
+import type { SpeakerNote } from '@/atoms/speakerNotes/speakerNotes.types';
 import type { ContextAwareSpellCheckResult } from '@/services/spellCheckService/contextAwareSpellCheck';
 
 export const speakerNotesAtom = atom<SpeakerNote[]>([]);

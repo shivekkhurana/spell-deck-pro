@@ -1,10 +1,10 @@
-import { SlideThumbnail } from './SlideThumbnail';
 import clsx from 'clsx';
 import { useAtom, useSetAtom } from 'jotai';
 
 import { currentSlideIdAtom } from '@/atoms/currentSlide/currentSlide';
 import { slidesAtom } from '@/atoms/slides/slides';
 import type { Slide } from '@/atoms/slides/slides.types';
+import { SlideThumbnail } from '@/components/SlideMiniMap/SlideThumbnail';
 
 const createNewSlide = (order: number): Slide => ({
   id: crypto.randomUUID(),

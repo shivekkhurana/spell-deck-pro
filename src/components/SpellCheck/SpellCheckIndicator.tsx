@@ -1,5 +1,6 @@
-import type { SpellCheckIndicatorProps } from './SpellCheck.types';
 import clsx from 'clsx';
+
+import type { SpellCheckIndicatorProps } from '@/components/SpellCheck/SpellCheck.types';
 
 const getStatusText = (
   status?: 'idle' | 'checking' | 'checked' | 'error'
